@@ -17,6 +17,8 @@ services:
       MYSQL_DATABASE: voting
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+    volumes:
+      - ./database/voting.sql:/docker-entrypoint-initdb.d/voting.sql  # Mount the SQL file from the database folder
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
