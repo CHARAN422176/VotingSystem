@@ -1,20 +1,17 @@
-# Use the official Node.js image as the base
-FROM node:14
+# Use the official PHP image with Apache
+FROM php:7.4-apache
+
+# Enable the Apache mod_rewrite module
+RUN a2enmod rewrite
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /var/www/html
 
-# Copy the package.json and package-lock.json
-COPY package*.json ./
-
-# Install the dependencies specified in package.json
-RUN npm install
-
-# Copy the entire project into the container
+# Copy your project files into the container
 COPY . .
 
-# Expose port 8080 (or whichever port your app listens on)
-EXPOSE 8080
+# Expose port 80 (Apache default port)
+EXPOSE 80
 
-# Define the command to start your app
-CMD ["npm", "start"]
+# Start Apache server
+CMD ["apache2-foreground"]
